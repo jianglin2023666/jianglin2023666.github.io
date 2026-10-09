@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f5f0">
+  <meta name="description" content="刘士瑀的个人学术主页。研究兴趣包括 GPU Kernel、智能化 GPU 编程、多模态学习与视线估计。">
+  <title>刘士瑀 · 个人学术主页</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f5f5f0;
+      --surface: #fffefa;
+      --ink: #1d2926;
+      --muted: #707b75;
+      --line: #e4e7df;
+      --green: #315d4d;
+      --green-soft: #e7eee7;
+      --orange: #c76d4e;
+      --serif: Georgia, "Times New Roman", serif;
+      --sans: Inter, "Aptos", "Segoe UI", "Microsoft YaHei", sans-serif;
+      --shadow: 0 18px 50px rgba(37, 53, 43, .055);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 32px; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 15px; line-height: 1.72; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+    ::selection { background: #d9e6db; color: var(--ink); }
+    .layout { width: min(1480px, 100%); margin: 0 auto; display: grid; grid-template-columns: 258px minmax(0, 1fr); min-height: 100vh; }
+    .sidebar { position: sticky; top: 0; height: 100vh; padding: 34px 25px 24px 30px; border-right: 1px solid var(--line); display: flex; flex-direction: column; background: rgba(245,245,240,.88); }
+    .monogram { width: 49px; height: 49px; display: grid; place-items: center; border: 1px solid #cbd6cb; border-radius: 15px; background: var(--green-soft); color: var(--green); font-family: var(--serif); font-size: 19px; letter-spacing: -.06em; }
+    .side-name { margin-top: 20px; font-size: 20px; line-height: 1.35; font-weight: 650; letter-spacing: .015em; }
+    .side-role { margin-top: 7px; color: var(--muted); font-size: 12px; line-height: 1.6; }
+    .side-rule { width: 100%; height: 1px; background: var(--line); margin: 27px 0 19px; }
+    .nav-label, .eyebrow { color: #87918b; font-size: 10px; text-transform: uppercase; letter-spacing: .16em; font-weight: 650; }
+    .side-nav { margin-top: 9px; display: grid; gap: 3px; }
+    .side-nav a { display: flex; align-items: center; gap: 11px; padding: 7px 8px; border-radius: 8px; color: #68736d; font-size: 12px; transition: .18s ease; }
+    .side-nav a::before { content: ""; width: 5px; height: 5px; border: 1px solid #a4afa7; border-radius: 50%; }
+    .side-nav a:hover, .side-nav a.active { color: var(--green); background: #eaf0e9; }
+    .side-nav a.active::before { border-color: var(--green); background: var(--green); }
+    .side-bottom { margin-top: auto; }
+    .location { color: var(--muted); font-size: 11px; }
+    .location::before { content: ""; display: inline-block; width: 6px; height: 6px; margin: 0 8px 1px 0; border-radius: 50%; background: #77a280; }
+    .side-email { display: inline-block; margin-top: 9px; color: var(--green); font-size: 11px; border-bottom: 1px solid #b8c9bb; }
+    main { min-width: 0; padding: 0 58px 35px; }
+    .topbar { height: 73px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--line); }
+    .topbar-note { color: #89938d; font-size: 10px; letter-spacing: .17em; text-transform: uppercase; }
+    .lang-toggle { padding: 6px 10px; background: transparent; color: #68736d; border: 1px solid #dfe4dc; border-radius: 999px; cursor: pointer; font-size: 10px; letter-spacing: .06em; transition: .2s; }
+    .lang-toggle:hover { border-color: #a8b8aa; color: var(--green); }
+    .hero { position: relative; overflow: hidden; display: grid; grid-template-columns: minmax(0, 1fr) 270px; gap: 40px; align-items: center; min-height: 300px; padding: 34px 0 30px; border-bottom: 1px solid var(--line); }
+    .hero::after { content: ""; position: absolute; z-index: -1; top: 18px; right: -90px; width: 430px; height: 430px; border-radius: 50%; background: radial-gradient(circle, rgba(215,228,214,.46), rgba(245,245,240,0) 69%); }
+    .hero-copy { position: relative; z-index: 1; }
+    .hero-kicker { display: flex; align-items: center; gap: 10px; color: var(--green); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; font-weight: 650; }
+    .hero-kicker::before { content: ""; width: 23px; height: 1px; background: var(--orange); }
+    h1 { max-width: 680px; margin: 22px 0 13px; font-size: clamp(35px, 4.1vw, 58px); font-weight: 590; letter-spacing: -.055em; line-height: 1.18; }
+    h1 .name { white-space: nowrap; }
+    .hero-subtitle { margin: 0; color: #5f6e65; font-size: 14px; letter-spacing: .015em; }
+    .hero-intro { max-width: 600px; margin: 22px 0 0; color: #626d67; font-size: 13px; line-height: 1.95; }
+    .hero-intro strong { color: #344a3e; font-weight: 600; }
+    .hero-actions { display: flex; align-items: center; gap: 18px; margin-top: 25px; }
+    .button-primary { display: inline-flex; align-items: center; gap: 9px; padding: 10px 15px; border: 1px solid var(--green); border-radius: 5px; background: var(--green); color: white; font-size: 11px; transition: .2s; }
+    .button-primary:hover { background: #244637; transform: translateY(-1px); }
+    .button-primary svg { width: 13px; height: 13px; }
+    .text-link { color: #55675c; font-size: 11px; border-bottom: 1px solid #b7c2b8; padding: 2px 0; }
+    .text-link:hover { color: var(--green); }
+    .inline-link { color: var(--green); text-decoration: underline; text-decoration-color: #a8bcaa; text-decoration-thickness: 1px; text-underline-offset: 3px; transition: color .18s ease, text-decoration-color .18s ease; }
+    .inline-link:hover { color: var(--orange); text-decoration-color: var(--orange); }
+    .visual { position: relative; width: 246px; height: 246px; justify-self: center; }
+    .portrait-frame { position: absolute; inset: 6px; overflow: hidden; border: 7px solid rgba(255,254,250,.92); border-radius: 50%; box-shadow: 0 0 0 1px #c9d8cb, 0 14px 34px rgba(37,53,43,.12); transform: rotate(2deg); }
+    .portrait { width: 100%; height: 100%; display: block; object-fit: cover; object-position: 50% 37%; transform: scale(1.04); }
+    .portrait-caption { position: absolute; right: -18px; bottom: 18px; padding: 5px 9px; border: 1px solid #dfe6dd; border-radius: 3px; background: var(--paper); color: #647369; font-family: var(--serif); font-size: 9px; letter-spacing: .1em; }
+    .section { padding: 37px 0 35px; border-bottom: 1px solid var(--line); scroll-margin-top: 16px; }
+    .section-heading { display: flex; align-items: baseline; gap: 12px; margin-bottom: 19px; }
+    .section-index { color: #a0aaa2; font-family: var(--serif); font-size: 12px; }
+    h2 { margin: 0; font-size: 19px; font-weight: 620; letter-spacing: -.025em; }
+    .section-en { margin-left: auto; color: #9aa39c; font-family: var(--serif); font-size: 11px; font-style: italic; }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+    .about-copy { margin: 0; color: #626d67; font-size: 12px; line-height: 1.95; }
+    .interest-list { display: grid; gap: 9px; }
+    .interest { display: flex; gap: 10px; align-items: flex-start; color: #536158; font-size: 11px; line-height: 1.65; }
+    .interest-num { flex: 0 0 22px; color: var(--orange); font-family: var(--serif); font-size: 11px; }
+    .interest strong { color: #34483c; font-weight: 600; }
+    .timeline { position: relative; margin-left: 5px; padding-left: 20px; border-left: 1px solid #d8e0d7; }
+    .timeline-item { position: relative; padding: 0 0 23px; }
+    .timeline-item:last-child { padding-bottom: 0; }
+    .timeline-item::before { content: ""; position: absolute; top: 8px; left: -24px; width: 7px; height: 7px; border: 1px solid var(--green); border-radius: 50%; background: var(--paper); }
+    .timeline-top { display: flex; flex-wrap: wrap; gap: 8px 14px; justify-content: space-between; align-items: baseline; }
+    .timeline-title { font-size: 12px; font-weight: 620; }
+    .timeline-date { color: #89938d; font-size: 10px; font-variant-numeric: tabular-nums; }
+    .timeline-sub { margin-top: 2px; color: #66736a; font-size: 11px; }
+    .timeline-desc { max-width: 780px; margin: 6px 0 0; color: #758078; font-size: 10.5px; line-height: 1.8; }
+    .research-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .research-card { min-height: 160px; padding: 16px 17px 14px; border: 1px solid var(--line); border-radius: 5px; background: rgba(255,254,250,.62); transition: .2s ease; }
+    .research-card:hover { transform: translateY(-2px); border-color: #c9d5c9; box-shadow: var(--shadow); }
+    .card-meta { display: flex; align-items: center; gap: 7px; color: #8b968e; font-size: 9px; letter-spacing: .07em; text-transform: uppercase; }
+    .card-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--orange); }
+    .research-card h3 { margin: 12px 0 6px; font-size: 13px; line-height: 1.55; font-weight: 620; }
+    .research-card p { margin: 0; color: #748077; font-size: 10.5px; line-height: 1.8; }
+    .tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 12px; }
+    .tag { padding: 2px 7px; border-radius: 3px; background: #edf1eb; color: #617166; font-size: 9px; }
+    .project-list { display: grid; }
+    .project-row { display: grid; grid-template-columns: 1fr auto; gap: 8px 20px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+    .project-row:first-child { padding-top: 0; }
+    .project-row:last-child { border-bottom: 0; padding-bottom: 0; }
+    .project-name { font-size: 11.5px; font-weight: 620; }
+    .project-date { color: #929c94; font-size: 9.5px; }
+    .project-desc { grid-column: 1 / -1; margin-top: -5px; color: #748077; font-size: 10.5px; line-height: 1.8; }
+    .project-award { color: var(--green); }
+    .honors { display: grid; grid-template-columns: 1fr 1fr; gap: 0 22px; }
+    .honor { display: flex; justify-content: space-between; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--line); font-size: 10.5px; }
+    .honor span:first-child { color: #59665d; }
+    .honor span:last-child { flex: 0 0 auto; color: #939d95; font-size: 9px; }
+    .skill-groups { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 22px; }
+    .skill-group { padding: 11px 0 12px; border-bottom: 1px solid var(--line); }
+    .skill-title { color: #45594b; font-size: 10.5px; font-weight: 620; }
+    .skill-items { margin-top: 5px; color: #748077; font-size: 10px; line-height: 1.8; }
+    footer { display: flex; justify-content: space-between; gap: 15px; padding-top: 22px; color: #949d96; font-size: 9px; }
+    @media (min-width: 1300px) { main { padding-left: 76px; padding-right: 76px; } .hero { min-height: 330px; } }
+    @media (max-width: 980px) { .layout { grid-template-columns: 218px minmax(0,1fr); } .sidebar { padding-left: 22px; padding-right: 18px; } main { padding-left: 34px; padding-right: 34px; } .hero { grid-template-columns: minmax(0,1fr) 210px; gap: 20px; } .visual { transform: scale(.86); } }
+    @media (max-width: 720px) { .layout { display: block; } .sidebar { position: relative; width: 100%; height: auto; display: grid; grid-template-columns: 42px 1fr auto; align-items: center; gap: 0 12px; padding: 12px 18px; border-right: 0; border-bottom: 1px solid var(--line); } .monogram { width: 40px; height: 40px; grid-row: span 2; border-radius: 12px; font-size: 16px; } .side-name { margin: 0; font-size: 15px; } .side-role { margin: 1px 0 0; font-size: 9px; } .side-rule, .nav-label, .side-bottom { display: none; } .side-nav { display: flex; grid-column: 1 / -1; gap: 2px; margin-top: 10px; overflow-x: auto; scrollbar-width: none; } .side-nav::-webkit-scrollbar { display:none; } .side-nav a { flex: 0 0 auto; gap: 0; padding: 5px 8px; font-size: 10px; } .side-nav a::before { display: none; } main { padding: 0 21px 25px; } .topbar { height: 54px; } .topbar-note { font-size: 8px; } .hero { grid-template-columns: minmax(0,1fr); min-height: 0; padding: 43px 0 32px; } .hero-copy { grid-row: 1; } .visual { position: absolute; right: -51px; top: 20px; width: 185px; height: 185px; opacity: .44; transform: scale(.75); transform-origin: top right; } h1 { font-size: clamp(34px, 9vw, 48px); } .hero-intro { max-width: 95%; font-size: 12px; } .hero-actions { gap: 14px; } .section { padding: 29px 0; } .about-grid { grid-template-columns: 1fr; gap: 17px; } .research-grid { grid-template-columns: 1fr; } .research-card { min-height: 0; } .honors, .skill-groups { grid-template-columns: 1fr; } .honor { font-size: 10px; } .section-en { font-size: 9px; } footer { font-size: 8px; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar" aria-label="个人信息与导航">
+      <div class="monogram" aria-hidden="true">SY</div>
+      <div class="side-name" data-zh="刘士瑀" data-en="Shiyu Liu">刘士瑀</div>
+      <div class="side-role" data-zh="上海交通大学硕士研究生 · AI 系统研究" data-en="M.S. Student at SJTU · AI Systems Research">上海交通大学硕士研究生 · AI 系统研究</div>
+      <div class="side-rule"></div>
+      <div class="nav-label" data-zh="目录" data-en="Contents">目录</div>
+      <nav class="side-nav">
+        <a class="active" href="#about" data-zh="关于我" data-en="About">关于我</a>
+        <a href="#education" data-zh="教育与经历" data-en="Background">教育与经历</a>
+        <a href="#research" data-zh="研究方向" data-en="Research">研究方向</a>
+        <a href="#projects" data-zh="项目经历" data-en="Projects">项目经历</a>
+        <a href="#honors" data-zh="荣誉奖项" data-en="Honors">荣誉奖项</a>
+      </nav>
+      <div class="side-bottom">
+        <div class="location" data-zh="欢迎学术交流与合作" data-en="Open to academic exchange">欢迎学术交流与合作</div>
+        <a class="side-email" href="mailto:liushy99@sjtu.edu.cn">liushy99@sjtu.edu.cn</a>
+      </div>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <div class="topbar-note" data-zh="个人学术主页 · 研究与项目" data-en="Personal Academic Website · Research & Projects">个人学术主页 · 研究与项目</div>
+        <button class="lang-toggle" type="button" aria-label="Switch to English">EN&nbsp; / &nbsp;中</button>
+      </header>
+
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <div class="hero-kicker" data-zh="电子信息科学与技术 · AI 系统研究" data-en="Electronic Information Science & Technology · AI Systems">电子信息科学与技术 · AI 系统研究</div>
+          <h1 id="hero-title"><span data-zh="你好，我是" data-en="Hello, I'm">你好，我是</span><span class="name" data-zh="刘士瑀" data-en=" Shiyu Liu">刘士瑀</span><span data-zh="。" data-en=".">。</span></h1>
+          <div class="hero-actions">
+            <a class="button-primary" href="#research"><span data-zh="探索我的研究" data-en="Explore my research">探索我的研究</span><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9M8 4l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            <a class="text-link" href="mailto:liushy99@sjtu.edu.cn" data-zh="给我写邮件 ↗" data-en="Get in touch ↗">给我写邮件 ↗</a>
+          </div>
+        </div>
+        <div class="visual" aria-label="刘士瑀个人照片">
+          <div class="portrait-frame"><img class="portrait" src="portrait.jpg" alt="刘士瑀在书架前的个人照片"></div>
+          <span class="portrait-caption">RESEARCHER</span>
+        </div>
+      </section>
+
+      <section class="section" id="about">
+        <div class="section-heading"><span class="section-index">01</span><h2 data-zh="关于我" data-en="About">关于我</h2><span class="section-en">A little introduction</span></div>
+        <div class="about-grid">
+          <p class="about-copy" data-zh="我目前是上海交通大学集成电路学院电子信息科学与技术专业的硕士研究生，与<a href=&quot;https://www.sisi.edu.cn/main.htm&quot; target=&quot;_blank&quot; rel=&quot;noreferrer&quot;>上海创芯学院（SiSi）</a>联合培养，导师为贺光辉教授。我的研究聚焦于深度神经网络硬件加速器设计，以及面向实时智能图像处理的算法与系统；此前也参与过 GPU Kernel 生成与优化相关研究。长远而言，我希望构建的不仅是高性能 AI 系统，也是真正可理解、可控且值得信赖的智能系统。" data-en="I am a master's student in Electronic Information Science and Technology at Shanghai Jiao Tong University’s School of Integrated Circuits, jointly trained with <a href=&quot;https://www.sisi.edu.cn/main.htm&quot; target=&quot;_blank&quot; rel=&quot;noreferrer&quot;>Shanghai Institute for Silicon Intelligence (SiSi)</a> under the supervision of Prof. Guanghui He. My research focuses on deep neural network accelerator design and algorithms and systems for real-time intelligent image processing. I have also worked on GPU kernel generation and optimization. In the long term, I hope to build AI systems that are not only powerful, but also scientifically understandable, controllable, and trustworthy.">我目前是上海交通大学集成电路学院电子信息科学与技术专业的硕士研究生，与<a href="https://www.sisi.edu.cn/main.htm" target="_blank" rel="noreferrer">上海创芯学院（SiSi）</a>联合培养，导师为贺光辉教授。我的研究聚焦于深度神经网络硬件加速器设计，以及面向实时智能图像处理的算法与系统；此前也参与过 GPU Kernel 生成与优化相关研究。长远而言，我希望构建的不仅是高性能 AI 系统，也是真正可理解、可控且值得信赖的智能系统。</p>
+          <div class="interest-list">
+            <div class="interest"><span class="interest-num">01</span><span data-zh="<strong>AI 系统与 GPU 编程</strong> — Kernel 正确性、性能优化与 Agent 经验迁移" data-en="<strong>AI systems & GPU programming</strong> — kernel correctness, optimization, and agent experience transfer"><strong>AI 系统与 GPU 编程</strong> — Kernel 正确性、性能优化与 Agent 经验迁移</span></div>
+            <div class="interest"><span class="interest-num">02</span><span data-zh="<strong>多模态视觉</strong> — 语义锚点、视觉语言模型与三维视线估计" data-en="<strong>Multimodal vision</strong> — semantic anchors, vision-language models, and 3D gaze estimation"><strong>多模态视觉</strong> — 语义锚点、视觉语言模型与三维视线估计</span></div>
+            <div class="interest"><span class="interest-num">03</span><span data-zh="<strong>高效机器学习</strong> — 端侧推理、模型压缩与嵌入式实现" data-en="<strong>Efficient machine learning</strong> — on-device inference, model compression, and embedded deployment"><strong>高效机器学习</strong> — 端侧推理、模型压缩与嵌入式实现</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="education">
+        <div class="section-heading"><span class="section-index">02</span><h2 data-zh="教育与学术经历" data-en="Education & Experience">教育与学术经历</h2><span class="section-en">Background</span></div>
+        <div class="timeline">
+          <article class="timeline-item">
+            <div class="timeline-top"><div class="timeline-title" data-zh="上海交通大学 · 集成电路学院" data-en="Shanghai Jiao Tong University · School of Integrated Circuits">上海交通大学 · 集成电路学院</div><div class="timeline-date" data-zh="目前" data-en="Present">目前</div></div>
+            <div class="timeline-sub" data-zh="硕士研究生 · 电子信息科学与技术 · 与<a href=&quot;https://www.sisi.edu.cn/main.htm&quot; target=&quot;_blank&quot; rel=&quot;noreferrer&quot; class=&quot;inline-link&quot;>上海创芯学院（SiSi）</a>联合培养 · 导师：<a href=&quot;https://icisee.sjtu.edu.cn/jiaoshiml/716.html&quot; target=&quot;_blank&quot; rel=&quot;noreferrer&quot; class=&quot;inline-link&quot;>贺光辉教授</a> ↗" data-en="M.S. Student · Electronic Information Science and Technology · Jointly trained with <a href=&quot;https://www.sisi.edu.cn/main.htm&quot; target=&quot;_blank&quot; rel=&quot;noreferrer&quot; class=&quot;inline-link&quot;>Shanghai Institute for Silicon Intelligence (SiSi)</a> · Advisor: <a href=&quot;https://icisee.sjtu.edu.cn/jiaoshiml/716.html&quot; target=&quot;_blank&quot; rel=&quot;noreferrer&quot; class=&quot;inline-link&quot;>Guanghui He</a> ↗">硕士研究生 · 电子信息科学与技术 · 与<a href="https://www.sisi.edu.cn/main.htm" target="_blank" rel="noreferrer" class="inline-link">上海创芯学院（SiSi）</a>联合培养 · 导师：<a href="https://icisee.sjtu.edu.cn/jiaoshiml/716.html" target="_blank" rel="noreferrer" class="inline-link">贺光辉教授</a> ↗</div>
+            <p class="timeline-desc" data-zh="研究方向：深度神经网络硬件加速器设计、实时智能图像处理算法与系统设计。" data-en="Research interests: deep neural network accelerator design, and algorithms and systems for real-time intelligent image processing.">研究方向：深度神经网络硬件加速器设计、实时智能图像处理算法与系统设计。</p>
+          </article>
+          <article class="timeline-item">
+            <div class="timeline-top"><div class="timeline-title" data-zh="西湖大学 · ENCODE Lab" data-en="Westlake University · ENCODE Lab">西湖大学 · ENCODE Lab</div><div class="timeline-date">2026.06 — 2026.09</div></div>
+            <div class="timeline-sub" data-zh="访问学生 · 导师：<a href=&quot;https://www.westlake.edu.cn/faculty/huan-wang.html&quot; target=&quot;_blank&quot; rel=&quot;noreferrer&quot; class=&quot;inline-link&quot;>王欢</a> ↗" data-en="Visiting Student · Advisor: <a href=&quot;https://www.westlake.edu.cn/faculty/huan-wang.html&quot; target=&quot;_blank&quot; rel=&quot;noreferrer&quot; class=&quot;inline-link&quot;>Huan Wang</a> ↗">访问学生 · 导师：<a href="https://www.westlake.edu.cn/faculty/huan-wang.html" target="_blank" rel="noreferrer" class="inline-link">王欢</a> ↗</div>
+            <p class="timeline-desc" data-zh="参与 GPU Kernel Benchmark 与智能化 GPU 编程研究，使用 CUDA、Triton、CuTe DSL 等技术，探索 Agent 从 Kernel 优化中学习可迁移经验的可能性。" data-en="Explored GPU kernel benchmarking and agentic GPU programming with CUDA, Triton, and CuTe DSL, investigating how agents can learn reusable optimization experience.">参与 GPU Kernel Benchmark 与智能化 GPU 编程研究，使用 CUDA、Triton、CuTe DSL 等技术，探索 Agent 从 Kernel 优化中学习可迁移经验的可能性。</p>
+          </article>
+          <article class="timeline-item">
+            <div class="timeline-top"><div class="timeline-title" data-zh="中山大学 · 电子与信息工程学院" data-en="Sun Yat-sen University · School of Electronics and Information Technology">中山大学 · 电子与信息工程学院</div><div class="timeline-date">2022.09 — 2026.06</div></div>
+            <div class="timeline-sub" data-zh="工学学士 · 通信工程" data-en="B.Eng. · Communication Engineering">工学学士 · 通信工程</div>
+            <p class="timeline-desc" data-zh="GPA 3.5 / 5.0。主修信号与系统、信息论与编码、通信原理、数值计算方法及数据结构与算法。" data-en="GPA 3.5 / 5.0. Coursework included signals and systems, information theory and coding, communication principles, numerical methods, and data structures and algorithms.">GPA 3.5 / 5.0。主修信号与系统、信息论与编码、通信原理、数值计算方法及数据结构与算法。</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="research">
+        <div class="section-heading"><span class="section-index">03</span><h2 data-zh="研究方向" data-en="Research">研究方向</h2><span class="section-en">Selected work</span></div>
+        <div class="research-grid">
+          <article class="research-card">
+            <div class="card-meta"><span class="card-dot"></span><span data-zh="研究探索 · 2026" data-en="Research exploration · 2026">研究探索 · 2026</span></div>
+            <h3 data-zh="<a href=&quot;https://arxiv.org/abs/2610.05014&quot; target=&quot;_blank&quot; rel=&quot;noreferrer&quot; class=&quot;inline-link&quot;>MetaKernelBench</a>：面向 GPU Kernel 优化的 Agent 经验迁移 ↗" data-en="<a href=&quot;https://arxiv.org/abs/2610.05014&quot; target=&quot;_blank&quot; rel=&quot;noreferrer&quot; class=&quot;inline-link&quot;>MetaKernelBench</a>: Transferring Agent Experience in GPU Kernel Optimization ↗"><a href="https://arxiv.org/abs/2610.05014" target="_blank" rel="noreferrer" class="inline-link">MetaKernelBench</a>：面向 GPU Kernel 优化的 Agent 经验迁移 ↗</h3>
+            <p data-zh="探索 Agent 能否从 Kernel 优化过程中总结可复用经验，并将其迁移到新的 GPU 编程任务。项目处于早期研究探索阶段。" data-en="Exploring whether agents can extract reusable insights from kernel optimization and transfer them to new GPU programming tasks. This work is at an early research stage.">探索 Agent 能否从 Kernel 优化过程中总结可复用经验，并将其迁移到新的 GPU 编程任务。项目处于早期研究探索阶段。</p>
+            <div class="tags"><span class="tag">CUDA</span><span class="tag">Triton</span><span class="tag">GPU Benchmark</span><span class="tag" data-zh="目标：ICLR 2027" data-en="Target: ICLR 2027">目标：ICLR 2027</span></div>
+          </article>
+          <article class="research-card">
+            <div class="card-meta"><span class="card-dot"></span><span data-zh="本科毕业设计" data-en="Undergraduate thesis">本科毕业设计</span></div>
+            <h3 data-zh="基于语义锚点的静态视线估计" data-en="Static Gaze Estimation with Semantic Anchors">基于语义锚点的静态视线估计</h3>
+            <p data-zh="结合 CLIP/ViT 特征、Three-Branch 视觉建模与 BiGRU 时序建模，探索语义锚点辅助的三维视线回归，并在 MPIIFaceGaze 与 Gaze360 上开展验证与迁移诊断。" data-en="Combines CLIP/ViT features, a three-branch visual model, and BiGRU temporal modeling for semantic-anchor-guided 3D gaze regression, evaluated on MPIIFaceGaze and Gaze360.">结合 CLIP/ViT 特征、Three-Branch 视觉建模与 BiGRU 时序建模，探索语义锚点辅助的三维视线回归，并在 MPIIFaceGaze 与 Gaze360 上开展验证与迁移诊断。</p>
+            <div class="tags"><span class="tag">Multimodal Learning</span><span class="tag">CLIP / ViT</span><span class="tag">PyTorch</span></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="projects">
+        <div class="section-heading"><span class="section-index">04</span><h2 data-zh="项目经历" data-en="Projects">项目经历</h2><span class="section-en">Engineering & research</span></div>
+        <div class="project-list">
+          <article class="project-row">
+            <div class="project-name" data-zh="二级密勒补偿运算放大器设计与仿真" data-en="Two-Stage Miller-Compensated Op-Amp Design">二级密勒补偿运算放大器设计与仿真</div><div class="project-date">2024.03 — 2024.07</div>
+            <div class="project-desc" data-zh="基于 SMIC 180 nm 工艺完成电路设计、版图与后仿，后仿增益 82.58 dB、单位增益带宽 86.29 MHz、相位裕度 64.82°。获全国大学生集成电路创新创业大赛华南赛区二等奖。" data-en="Designed, laid out, and post-layout simulated a circuit in SMIC 180 nm. Achieved 82.58 dB gain, 86.29 MHz unity-gain bandwidth, and 64.82° phase margin. South China second prize, National IC Innovation & Entrepreneurship Competition.">基于 SMIC 180 nm 工艺完成电路设计、版图与后仿，后仿增益 82.58 dB、单位增益带宽 86.29 MHz、相位裕度 64.82°。获全国大学生集成电路创新创业大赛华南赛区二等奖。</div>
+          </article>
+          <article class="project-row">
+            <div class="project-name" data-zh="基于深度学习的轻量级防诈骗智慧终端" data-en="Lightweight Deep-Learning Anti-Fraud Device">基于深度学习的轻量级防诈骗智慧终端</div><div class="project-date">2024.02 — 2024.05</div>
+            <div class="project-desc" data-zh="在 Renesas RA6M5 上部署 TinyMaix 与 INT8 量化模型，实现本地诈骗文本检测；模型小于 250 KB，推理延迟低于 500 ms。获瑞萨杯华南赛区三等奖。" data-en="Deployed a TinyMaix INT8-quantized model on Renesas RA6M5 for on-device scam-text detection. The model fit within 250 KB with under 500 ms inference latency. South China third prize, Renesas Cup.">在 Renesas RA6M5 上部署 TinyMaix 与 INT8 量化模型，实现本地诈骗文本检测；模型小于 250 KB，推理延迟低于 500 ms。获瑞萨杯华南赛区三等奖。</div>
+          </article>
+          <article class="project-row">
+            <div class="project-name" data-zh="单载波相干光通信系统设计与仿真" data-en="Single-Carrier Coherent Optical Communication System">单载波相干光通信系统设计与仿真</div><div class="project-date">2024.10 — 2024.12</div>
+            <div class="project-desc" data-zh="搭建 32 Gbaud QPSK 相干光传输链路并开发接收端 DSP，在 50 km 单模光纤场景完成仿真，验证 OSNR &gt; 18 dB 时的无差错传输。" data-en="Built a 32-Gbaud QPSK coherent optical link and receiver-side DSP. Simulations over 50 km of single-mode fiber demonstrated error-free transmission at OSNR &gt; 18 dB.">搭建 32 Gbaud QPSK 相干光传输链路并开发接收端 DSP，在 50 km 单模光纤场景完成仿真，验证 OSNR &gt; 18 dB 时的无差错传输。</div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="honors">
+        <div class="section-heading"><span class="section-index">05</span><h2 data-zh="荣誉与奖项" data-en="Honors & Awards">荣誉与奖项</h2><span class="section-en">Recognition</span></div>
+        <div class="honors">
+          <div class="honor"><span data-zh="全国大学生集成电路创新创业大赛 · 华南赛区二等奖" data-en="National IC Innovation & Entrepreneurship Competition · South China, 2nd Prize">全国大学生集成电路创新创业大赛 · 华南赛区二等奖</span><span>2024</span></div>
+          <div class="honor"><span data-zh="中山大学优秀学生奖学金 · 二等奖" data-en="Sun Yat-sen University Outstanding Student Scholarship · 2nd Prize">中山大学优秀学生奖学金 · 二等奖</span><span>2024</span></div>
+          <div class="honor"><span data-zh="全国大学生电子设计竞赛（瑞萨杯）· 华南赛区三等奖" data-en="National Undergraduate Electronics Design Contest (Renesas Cup) · South China, 3rd Prize">全国大学生电子设计竞赛（瑞萨杯）· 华南赛区三等奖</span><span>2024</span></div>
+          <div class="honor"><span data-zh="全国大学生数学建模竞赛 · 广东赛区本科组三等奖" data-en="China Undergraduate Mathematical Contest in Modeling · Guangdong, 3rd Prize">全国大学生数学建模竞赛 · 广东赛区本科组三等奖</span><span>2024</span></div>
+          <div class="honor"><span data-zh="全国大学生集成电路创新创业大赛 · 华南赛区三等奖" data-en="National IC Innovation & Entrepreneurship Competition · South China, 3rd Prize">全国大学生集成电路创新创业大赛 · 华南赛区三等奖</span><span>2025</span></div>
+          <div class="honor"><span data-zh="中山大学优秀学生奖学金 · 三等奖" data-en="Sun Yat-sen University Outstanding Student Scholarship · 3rd Prize">中山大学优秀学生奖学金 · 三等奖</span><span>2025</span></div>
+        </div>
+      </section>
+
+      <footer><span data-zh="© 2026 刘士瑀 · 用于学术交流" data-en="© 2026 Shiyu Liu · For academic exchange">© 2026 刘士瑀 · 用于学术交流</span><span data-zh="认识你自己" data-en="Know thyself">认识你自己</span></footer>
+    </main>
+  </div>
+  <script>
+    (() => {
+      const button = document.querySelector('.lang-toggle');
+      const nodes = [...document.querySelectorAll('[data-zh][data-en]')];
+      let language = 'zh';
+      button.addEventListener('click', () => {
+        language = language === 'zh' ? 'en' : 'zh';
+        document.documentElement.lang = language === 'zh' ? 'zh-CN' : 'en';
+        document.title = language === 'zh' ? '刘士瑀 · 个人学术主页' : 'Shiyu Liu · Academic Homepage';
+        nodes.forEach(node => { node.innerHTML = node.dataset[language]; });
+        button.setAttribute('aria-label', language === 'zh' ? 'Switch to English' : '切换到中文');
+        document.querySelectorAll('.side-nav a').forEach(link => link.classList.remove('active'));
+      });
+      document.querySelectorAll('.side-nav a').forEach(link => {
+        link.addEventListener('click', () => {
+          document.querySelectorAll('.side-nav a').forEach(item => item.classList.remove('active'));
+          link.classList.add('active');
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
